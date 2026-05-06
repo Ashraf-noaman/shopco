@@ -118,7 +118,7 @@ shop/
 
 **Port 3000 already in use?**
 ```bash
-npm run dev -- -p 3001
+npm run dev -- -p 3000
 ```
 Then open http://localhost:3001
 
