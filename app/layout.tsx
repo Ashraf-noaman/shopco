@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppProvider } from "@/contexts/AppContext";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "SHOP.CO - Find Clothes That Matches Your Style",

@@ -88,7 +88,7 @@ export default function CartPage() {
                     className="w-20 h-24 overflow-hidden sm:w-24 sm:h-28 rounded-xl flex-shrink-0 flex items-center justify-center"
                     style={{ backgroundColor: item.color }}
                   >
-                    <Image src={item.emoji} alt={item.name} width={95} height={70} className=" object-cover  " />
+                    <Image src={item.emoji} alt={item.name} width={100} height={70} className=" object-cover  " />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">

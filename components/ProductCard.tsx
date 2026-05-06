@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: Product }) {
             />
           ) : (
             <span className="text-white/30 text-5xl">👕</span>
-          )}{" "}
+          )}{""}
         </div>
         {product.discount && (
           <span className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">

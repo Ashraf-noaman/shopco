@@ -10,6 +10,7 @@ import StarRating from "@/components/StarRating";
 import ProductCard from "@/components/ProductCard";
 import { ChevronRight, Minus, Plus, Check, SlidersHorizontal, ShoppingCart } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
+import Image from "next/image";
 
 const PRODUCT = {
   id: 9,
@@ -27,9 +28,10 @@ const PRODUCT = {
   descriptionAr:
     "تي شيرت جرافيك مثالي لجميع المناسبات. مصنوع من قماش ناعم وقابل للتنفس، يوفر راحة وأناقة فائقة.",
   images: [
-    { emoji: "👕", color: "#4a5240" },
-    { emoji: "👕", color: "#3d4535" },
-    { emoji: "👕", color: "#5a6250" },
+    { emoji: "/assets/55.png", color: "#4a5240" },
+    { emoji: "/assets/56.png", color: "#3d4535" },
+    { emoji: "/assets/57.png", color: "#5a6250" },
+    { emoji: "/assets/58.png", color: "#5a6250" },
   ],
   details: [
     "100% Cotton, 180 GSM",
@@ -77,10 +79,10 @@ const REVIEWS = [
 ];
 
 const YOU_MIGHT_LIKE = [
-  { id: 21, name: "Polo with Contrast Trims", price: 212, originalPrice: 242, discount: -20, rating: 4.0, emoji: "🧥", color: "#1a6b9a" },
-  { id: 22, name: "Gradient Graphic T-shirt", price: 145, originalPrice: null, discount: null, rating: 3.5, emoji: "🌈", color: "#f0e0c0" },
-  { id: 23, name: "Polo with Tipping Details", price: 180, originalPrice: null, discount: null, rating: 4.5, emoji: "👕", color: "#c8a0a0" },
-  { id: 24, name: "Black Striped T-shirt", price: 120, originalPrice: 160, discount: -30, rating: 5.0, emoji: "🖤", color: "#1a1a1a" },
+  { id: 21, name: "Polo with Contrast Trims", price: 212, originalPrice: 242, discount: -20, rating: 4.0, emoji: "/assets/22.png", color: "#1a6b9a" },
+  { id: 22, name: "Gradient Graphic T-shirt", price: 145, originalPrice: null, discount: null, rating: 3.5, emoji: "/assets/23.png", color: "#f0e0c0" },
+  { id: 23, name: "Polo with Tipping Details", price: 180, originalPrice: null, discount: null, rating: 4.5, emoji: "/assets/24.png", color: "#c8a0a0" },
+  { id: 24, name: "Black Striped T-shirt", price: 120, originalPrice: 160, discount: -30, rating: 5.0, emoji: "/assets/25.png", color: "#1a1a1a" },
 ];
 
 export default function ProductPage() {
@@ -122,7 +124,6 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AnnouncementBar />
       <Navbar />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         {/* Breadcrumb */}
@@ -142,13 +143,28 @@ export default function ProductPage() {
           <div className="flex gap-4">
             <div className="flex flex-col gap-3">
               {PRODUCT.images.map((img, i) => (
-                <button key={i} onClick={() => setActiveImage(i)} className={`w-16 h-20 rounded-xl overflow-hidden flex items-center justify-center border-2 transition-all ${activeImage === i ? "border-foreground" : "border-transparent"}`} style={{ backgroundColor: img.color }}>
-                  <span className="text-white/30 text-2xl select-none">{img.emoji}</span>
+                <button
+                  key={i}
+                  onClick={() => setActiveImage(i)}
+                  className={`w-17 h-20 rounded-xl overflow-hidden flex items-center justify-center border-2 transition-all ${activeImage === i ? "border-foreground" : "border-transparent"}`}
+                  style={{ backgroundColor: img.color }}
+                >
+                  <Image src={img.emoji} alt={productName} width={70} height={80} className="object-cover w-full h-full" />
                 </button>
               ))}
             </div>
-            <div className="flex-1 rounded-2xl overflow-hidden flex items-center justify-center aspect-square" style={{ backgroundColor: PRODUCT.images[activeImage].color }}>
-              <span className="text-white/20 text-9xl select-none">{PRODUCT.images[activeImage].emoji}</span>
+            {/* Main large image */}
+            <div
+              className="flex-1 rounded-2xl overflow-hidden flex items-center justify-center aspect-square"
+              style={{ backgroundColor: PRODUCT.images[activeImage].color }}
+            >
+              <Image
+                src={PRODUCT.images[activeImage].emoji}
+                alt={productName}
+                width={1000}
+                height={1000}
+                className="object-fill w-full h-full"
+              />
             </div>
           </div>
 
