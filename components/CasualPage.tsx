@@ -555,23 +555,24 @@ function ShopProductCard({
   return (
     <div className="group cursor-pointer relative">
       <div className="bg-[#f0eeed] dark:bg-secondary rounded-2xl overflow-hidden aspect-[3/4] flex items-center justify-center mb-3 relative">
-        
         <Link
           href={`/product/${product.id}`}
-          className="group cursor-pointer block"> {""}
-          <div
-          className="w-5/5 h-4/5 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
-          style={{ backgroundColor: product.color }}
+          className="group cursor-pointer block"
         >
-          <Image
-            src={product.emoji}
-            alt={name}
-            width={1000}
-            height={1000}
-            className="object-cover"
-          />
-          
-        </div>
+          {" "}
+          {""}
+          <div
+            className="w-5/5 h-4/5 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+            style={{ backgroundColor: product.color }}
+          >
+            <Image
+              src={product.emoji}
+              alt={name}
+              width={1000}
+              height={1000}
+              className="object-cover"
+            />
+          </div>
         </Link>
         {product.discount && (
           <span className="absolute top-3 end-3 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
@@ -580,32 +581,29 @@ function ShopProductCard({
         )}
 
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-  
-  <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            {/* Go to product */}
+            <Link
+              href={`/product/${product.id}`}
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold shadow-lg bg-secondary text-foreground hover:bg-secondary/80 transition"
+            >
+              View
+            </Link>
 
-    {/* Go to product */}
-    <Link
-      href={`/product/${product.id}`}
-      className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold shadow-lg bg-secondary text-foreground hover:bg-secondary/80 transition"
-    >
-      View
-    </Link>
-
-    {/* Add to cart */}
-    <span
-      onClick={handleAddToCart}
-      className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold shadow-lg transition-all cursor-pointer ${
-        added ? "bg-green-600 text-white" : "bg-foreground text-background"
-      }`}
-    >
-      <ShoppingCart size={13} />
-      {added ? "Added!" : "Cart"}
-    </span>
-
-  </div>
-
-</div>
-          
+            {/* Add to cart */}
+            <span
+              onClick={handleAddToCart}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold shadow-lg transition-all cursor-pointer ${
+                added
+                  ? "bg-green-600 text-white"
+                  : "bg-foreground text-background"
+              }`}
+            >
+              <ShoppingCart size={13} />
+              {added ? "Added!" : "Cart"}
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="px-0.5">
