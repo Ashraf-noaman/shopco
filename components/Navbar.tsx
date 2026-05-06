@@ -123,7 +123,7 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* USER (DESKTOP ONLY FIXED) */}
+            {/* Account dropdown (logged in) */}
             {user ? (
               <div className="relative" ref={accountRef}>
                 <button
@@ -142,7 +142,8 @@ export default function Navbar() {
                 </button>
 
                 {accountOpen && (
-                  <div className="absolute end-0 mt-2 w-52 bg-background border border-border rounded-xl shadow-xl py-1 z-50">
+                  <div className="absolute end-0 mt-2 w-56 bg-background border border-border rounded-xl shadow-xl py-1 z-50">
+                    {/* User info */}
                     <div className="px-4 py-2 border-b border-border">
                       <p className="text-xs text-muted-foreground">
                         {a.greeting},
@@ -152,6 +153,7 @@ export default function Navbar() {
                       </p>
                     </div>
 
+                    {/* My Account */}
                     <Link
                       href="#"
                       onClick={() => setAccountOpen(false)}
@@ -160,6 +162,7 @@ export default function Navbar() {
                       <User size={15} /> {a.myAccount}
                     </Link>
 
+                    {/* Orders */}
                     <Link
                       href="/orders"
                       onClick={() => setAccountOpen(false)}
@@ -175,6 +178,42 @@ export default function Navbar() {
                       )}
                     </Link>
 
+                    {/* Divider */}
+                    <div className="border-t border-border my-1" />
+
+                    {/* Theme toggle */}
+                    <button
+                      onClick={toggleTheme}
+                      className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition"
+                    >
+                      <span className="flex items-center gap-2">
+                        {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+                        {theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
+                      </span>
+                      {/* Visual pill indicator */}
+                      <span
+                        className={`w-8 h-4 rounded-full relative transition-colors ${
+                          theme === "dark" ? "bg-foreground" : "bg-border"
+                        }`}
+                      >
+                        <span
+                          className={`absolute top-0.5 w-3 h-3 rounded-full bg-background transition-all ${
+                            theme === "dark" ? "left-[18px]" : "left-0.5"
+                          }`}
+                        />
+                      </span>
+                    </button>
+
+                    {/* Language toggle */}
+                    <button
+                      onClick={toggleLang}
+                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition"
+                    >
+                      <Globe size={15} />
+                      {t.nav.switchLang}
+                    </button>
+
+                    {/* Divider + Logout */}
                     <div className="border-t border-border mt-1">
                       <button
                         onClick={handleLogout}
@@ -187,64 +226,53 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <div className="hidden sm:flex items-center gap-3">
+              <>
+                {/* Guest: login/signup buttons (desktop) */}
+                <div className="hidden sm:flex items-center gap-3">
+                  <Link
+                    href="/login"
+                    className="px-4 py-2 text-sm font-medium text-foreground border border-border rounded-full hover:bg-secondary transition whitespace-nowrap"
+                  >
+                    {a.login}
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="px-4 py-2 text-sm font-medium bg-foreground text-background rounded-full hover:opacity-90 transition whitespace-nowrap"
+                  >
+                    {a.signup}
+                  </Link>
+                </div>
+
+                {/* Guest: user icon (mobile only) */}
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-foreground border border-border rounded-full hover:bg-secondary transition whitespace-nowrap"
+                  className="sm:hidden p-1 hover:bg-secondary rounded-full transition"
+                  aria-label={a.login}
                 >
-                  {a.login}
+                  <User size={20} />
                 </Link>
 
-                <Link
-                  href="/signup"
-                  className="px-4 py-2 text-sm font-medium bg-foreground text-background rounded-full hover:opacity-90 transition whitespace-nowrap"
-                >
-                  {a.signup}
-                </Link>
-              </div>
+                {/* Guest: theme + lang on desktop (no account dropdown) */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <button
+                    onClick={toggleTheme}
+                    className="p-1.5 hover:bg-secondary rounded-full transition"
+                    aria-label={theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
+                    title={theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
+                  >
+                    {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                  </button>
+                  <button
+                    onClick={toggleLang}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border border-border hover:bg-secondary transition"
+                    aria-label="Switch language"
+                  >
+                    <Globe size={13} />
+                    {t.nav.switchLang}
+                  </button>
+                </div>
+              </>
             )}
-
-            {/* USER ICON MOBILE FIX (was causing issue) */}
-            {user && (
-              <button
-                onClick={() => setAccountOpen((v) => !v)}
-                className="hidden lg:block p-1 hover:bg-secondary rounded-full transition"
-                aria-label={a.account}
-              >
-                <User size={20} />
-              </button>
-            )}
-
-            {!user && (
-              <Link
-                href="/login"
-                className="hidden lg:block p-1 hover:bg-secondary rounded-full transition"
-                aria-label={a.login}
-              >
-                <User size={20} />
-              </Link>
-            )}
-
-            {/* Theme + Language */}
-            <div className="hidden lg:flex items-center gap-2">
-              <button
-                onClick={toggleTheme}
-                className="p-1.5 hover:bg-secondary rounded-full transition"
-                aria-label={theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
-                title={theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-
-              <button
-                onClick={toggleLang}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border border-border hover:bg-secondary transition"
-                aria-label="Switch language"
-              >
-                <Globe size={13} />
-                {t.nav.switchLang}
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -282,6 +310,37 @@ export default function Navbar() {
               <ShoppingCart size={18} /> Cart
             </span>
           </Link>
+
+          {/* Theme toggle — mobile menu */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-between text-base font-medium text-foreground hover:text-foreground/70 transition-colors py-1 border-b border-border"
+          >
+            <span className="flex items-center gap-2">
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === "dark" ? t.nav.lightMode : t.nav.darkMode}
+            </span>
+            <span
+              className={`w-9 h-5 rounded-full relative transition-colors ${
+                theme === "dark" ? "bg-foreground" : "bg-border"
+              }`}
+            >
+              <span
+                className={`absolute top-1 w-3 h-3 rounded-full bg-background transition-all ${
+                  theme === "dark" ? "left-[22px]" : "left-1"
+                }`}
+              />
+            </span>
+          </button>
+
+          {/* Language toggle — mobile menu */}
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-2 text-base font-medium text-foreground hover:text-foreground/70 transition-colors py-1"
+          >
+            <Globe size={18} />
+            {t.nav.switchLang}
+          </button>
         </div>
       )}
     </header>
